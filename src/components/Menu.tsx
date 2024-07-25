@@ -4,24 +4,47 @@ import {FaHamburger} from "react-icons/fa";
 import {useState} from "react";
 import {CiMenuFries} from "react-icons/ci";
 import Link from "next/link";
+import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
 
 export const Menu = () => {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
-            <CiMenuFries size={50}/>
-            {open && (
-                <div className="">
-                    <Link href="/">Home</Link>
-                    <Link href="/">Shop</Link>
-                    <Link href="/">Deals</Link>
-                    <Link href="/">About</Link>
-                    <Link href="/">Contact</Link>
-                    <Link href="/">Logout</Link>
-                    <Link href="/">Cart(1)</Link>
+        // <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
+        //     <CiMenuFries className="text-[26px]"/>
+        //     {open && (
+        //         <div className="flex-col">
+        //             <Link href="/">Home</Link>
+        //             <Link href="/">Shop</Link>
+        //             <Link href="/">Deals</Link>
+        //             <Link href="/">About</Link>
+        //             <Link href="/">Contact</Link>
+        //             <Link href="/">Logout</Link>
+        //             <Link href="/">Cart(1)</Link>
+        //         </div>
+        //     )}
+        // </div>
+
+        <Sheet>
+            <SheetTrigger className="flex justify-center items-center">
+                <CiMenuFries className="text-[32px] text-accent "/>
+            </SheetTrigger>
+            <SheetContent className="flex flex-col">
+                <div className="mt-32 mb-20 text-center text-2xl">
+                    <Link href="/" className="hover:text-current">
+                        <h2><span className="text-accent">N</span>EKOSTORE</h2>
+                    </Link>
                 </div>
-            )}
-        </div>
+                <nav className="flex flex-col justify-center items-center gap-8">
+                        <Link href="/">Home</Link>
+                        <Link href="/">Shop</Link>
+                        <Link href="/">Deals</Link>
+                        <Link href="/">About</Link>
+                        <Link href="/">Contact</Link>
+                        <Link href="/">Logout</Link>
+                        <Link href="/">Cart(1)</Link>
+                </nav>
+            </SheetContent>
+        </Sheet>
     );
 };
