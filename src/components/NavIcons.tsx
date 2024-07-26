@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
+import {CartModal} from "@/components/CartModal";
 
 export const NavIcons = () => {
     const router = useRouter();
@@ -72,27 +73,7 @@ export const NavIcons = () => {
                 <DropdownMenuContent className="w-56">
                     <DropdownMenuLabel >Shopping Cart</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
-                    <div className="flex px-2 justify-between items-center">
-                        <div><span className=" font-semibold">Subtotal</span></div>
-                        <div><span className=" font-semibold">0 €</span></div>
-                    </div>
-                    <div className="px-2 text-primary/80 text-sm">
-                        <p>Shipping and taxes calculated at checkout</p>
-                    </div>
-                    <div className="flex justify-between items-center p-2">
-                        <Button
-                            onClick={() => {
-                                router.push("/checkout");
-                            }}
-                            className="bg-white text-black border border-primary hover:bg-white">
-                            View Cart
-                        </Button>
-                        <Button onClick={() => {
-                            router.push("/checkout");
-                        }}>
-                            Checkout
-                        </Button>
-                    </div>
+                    <CartModal/>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
