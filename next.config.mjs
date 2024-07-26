@@ -7,6 +7,9 @@ const nextConfig = {
             },
             {
                 hostname:"images.pexels.com"
+            },
+            {
+                hostname:"i.etsystatic.com"
             }
         ]
     }

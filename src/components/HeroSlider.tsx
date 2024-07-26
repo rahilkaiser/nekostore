@@ -52,7 +52,7 @@ export const HeroSlider = () => {
         <div className="h-[calc(100vh-80px)] overflow-hidden relative">
             <Swiper
                 ref={swiperRef}
-                spaceBetween={50}
+                spaceBetween={0}
                 slidesPerView={1}
                 loop={true}
                 autoplay={{
