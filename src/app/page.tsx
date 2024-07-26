@@ -1,7 +1,12 @@
 import Image from "next/image";
+import {HeroSlider} from "@/components/HeroSlider";
 
 export default function Home() {
   return (
-      <div className="h-[2000px]">Home</div>
+      <div >
+        <section>
+          <HeroSlider/>
+        </section>
+      </div>
   );
 }
