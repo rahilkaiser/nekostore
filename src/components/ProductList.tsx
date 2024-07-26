@@ -26,8 +26,10 @@ export const ProductList = () => {
                 <div className="text-sm text-primary">
                     My Description
                 </div>
-                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 text-xs hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart</Button>
+                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart
+                </Button>
             </Link>
+
 
             <Link href="/test" className=" w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]">
                 <div className="relative w-full h-80">
@@ -49,8 +51,10 @@ export const ProductList = () => {
                 <div className="text-sm text-primary">
                     My Description
                 </div>
-                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 text-xs hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart</Button>
+                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart
+                </Button>
             </Link>
+
 
             <Link href="/test" className=" w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]">
                 <div className="relative w-full h-80">
@@ -72,8 +76,10 @@ export const ProductList = () => {
                 <div className="text-sm text-primary">
                     My Description
                 </div>
-                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 text-xs hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart</Button>
+                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart
+                </Button>
             </Link>
+
 
             <Link href="/test" className=" w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]">
                 <div className="relative w-full h-80">
@@ -95,8 +101,10 @@ export const ProductList = () => {
                 <div className="text-sm text-primary">
                     My Description
                 </div>
-                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 text-xs hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart</Button>
+                <Button className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add to Cart
+                </Button>
             </Link>
+
 
         </div>
     );

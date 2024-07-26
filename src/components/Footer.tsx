@@ -6,6 +6,7 @@ import {BsPaypal, BsTiktok, BsYoutube} from "react-icons/bs";
 import {Button} from "@/components/ui/button";
 import {SiDiscover, SiMastercard, SiVisa} from "react-icons/si";
 import {GrMastercard} from "react-icons/gr";
+import {Input} from "@/components/ui/input";
 
 export const Footer = () => {
     return (
@@ -73,7 +74,8 @@ export const Footer = () => {
                     <h3 className="uppercase">Subscribe</h3>
                     <p>Be the first to get the latest news about trends, promotions, and much more!</p>
                     <div className="flex flex-col gap-2">
-                        <div className="flex-1"><input type="text" placeholder="Email Adress" className="p-4 w-3/4"/>
+                        <div className="flex-1 flex gap-4">
+                            <Input type="text" placeholder="Email Adress" className="p-4 w-3/4 transition-all duration-300 "/>
                             <Button className="w-1/4 bg-accent text-white hover:bg-accent-hover">JOIN</Button></div>
                         <span className=" p-2 font-semibold">Secure Payments</span>
                         <div className="flex justify-evenly">
@@ -88,7 +90,6 @@ export const Footer = () => {
             {/*BOTTOM*/}
             <div className="flex mt-8">
                 <span className="font-semibold flex-grow">©2024 Nekostore</span>
-
             </div>
         </div>
     );
