@@ -9,7 +9,7 @@ import {GrMastercard} from "react-icons/gr";
 
 export const Footer = () => {
     return (
-        <div className="py-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <div className="py-14 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 bg-primary/10 mt-14">
             {/*    TOP*/}
             <div className="flex flex-col lg:flex-row justify-between gap-24">
                 {/*    LEFT*/}
