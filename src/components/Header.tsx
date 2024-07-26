@@ -1,8 +1,18 @@
 import Link from "next/link";
 import {Menu} from "@/components/Menu";
 import {CgBell, CgProfile, CgSearch, CgShoppingBag} from "react-icons/cg";
+import {
+    DropdownMenu,
+    DropdownMenuContent, DropdownMenuItem,
+    DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {NavIcons} from "@/components/NavIcons";
 
 export const Header = () => {
+
+
 
 
     return (
@@ -19,18 +29,7 @@ export const Header = () => {
                     <Link href="/about">About</Link>
                     <Link href="/contact">Contact</Link>
                 </div>
-                <div className="flex items-center gap-[26px]">
-                    <CgSearch className="text-[26px] cursor-pointer"></CgSearch>
-                    <CgProfile className="text-[26px] cursor-pointer"></CgProfile>
-                    <CgBell className="text-[26px] cursor-pointer"></CgBell>
-
-                    <div className="relative cursor-pointer">
-                        <CgShoppingBag className="text-[26px]"/>
-                        <div
-                            className="bg-accent w-[18px] h-[18px] absolute -right-1 -bottom-1 rounded-full text-white flex items-center justify-center text-sm font-bold pointer-events-none">3
-                        </div>
-                    </div>
-                </div>
+                <NavIcons/>
             </div>
 
 
