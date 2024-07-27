@@ -10,21 +10,6 @@ export const Menu = () => {
     const [open, setOpen] = useState(false);
 
     return (
-        // <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
-        //     <CiMenuFries className="text-[26px]"/>
-        //     {open && (
-        //         <div className="flex-col">
-        //             <Link href="/">Home</Link>
-        //             <Link href="/">Shop</Link>
-        //             <Link href="/">Deals</Link>
-        //             <Link href="/">About</Link>
-        //             <Link href="/">Contact</Link>
-        //             <Link href="/">Logout</Link>
-        //             <Link href="/">Cart(1)</Link>
-        //         </div>
-        //     )}
-        // </div>
-
         <Sheet>
             <SheetTrigger className="flex justify-center items-center">
                 <CiMenuFries className="text-[32px] text-accent "/>

@@ -8,15 +8,19 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {useRouter} from "next/navigation";
-import {Button} from "@/components/ui/button";
 import {CartModal} from "@/components/CartModal";
+import {useState} from "react";
+import {Input} from "@/components/ui/input";
 
 export const NavIcons = () => {
     const router = useRouter();
     const isLoggedIn = false;
 
+    const [searchVisible, setSearchVisible] = useState(false);
+    const [searchText, setSearchText] = useState("");
+
     function handleProfile() {
-        if(!isLoggedIn) {
+        if (!isLoggedIn) {
             router.push("/login");
             console.log("dnjkf")
         }
@@ -24,19 +28,32 @@ export const NavIcons = () => {
 
 
     return (
-        <div className="flex items-center gap-[26px]">
+        <div className="flex items-center gap-[26px] relative">
 
             {/*Search Icon*/}
             <CgSearch
-                onClick={() => {
-                }}
-                className="text-[26px] cursor-pointer hover:text-accent duration-300"></CgSearch>
+                onClick={() => setSearchVisible(!searchVisible)}
+                className="text-[26px] cursor-pointer hover:text-accent duration-300 "></CgSearch>
+
+            {searchVisible && (
+                <motion.div
+                    className="absolute left-0 top-12 w-full transition-all transform duration-500 ease-in-out ">
+                    <Input
+                        type="text"
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        placeholder="Search..."
+                        className="px-4 py-2 border rounded shadow-lg w-64 transform-all duration-300 bg-white/50 text-black placeholder:text-black"
+                        style={{transform: searchVisible ? 'translateX(0)' : 'translateX(-100%)'}}
+                    />
+                </motion.div>
+            )}
 
             {/*Profile Icon*/}
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <div onClick={handleProfile}>
-                    <CgProfile  className="text-[26px] cursor-pointer hover:text-accent duration-300"></CgProfile>
+                        <CgProfile className="text-[26px] cursor-pointer hover:text-accent duration-300"></CgProfile>
                     </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
@@ -71,7 +88,7 @@ export const NavIcons = () => {
                     </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel >Shopping Cart</DropdownMenuLabel>
+                    <DropdownMenuLabel>Shopping Cart</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
                     <CartModal/>
                 </DropdownMenuContent>
