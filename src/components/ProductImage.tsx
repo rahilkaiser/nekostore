@@ -46,7 +46,7 @@ export const ProductImage = () => {
                 ref={swiperRef}
                 spaceBetween={10}
                 navigation
-                pagination={{clickable: true}}
+                pagination={{clickable: false}}
                 modules={[Navigation, Pagination]}
                 onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
                 initialSlide={currentIndex}
