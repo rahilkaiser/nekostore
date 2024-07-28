@@ -8,11 +8,6 @@ import CustomSpinner from "@/components/CustomSpinner";
 
 export default async function Home() {
 
-    // const wixClient:any = await wixClientServer();
-    // const res = await wixClient.products.queryProducts().find();
-    //
-    // console.log(res);
-
     return (
         <div>
             <section>
@@ -30,7 +25,7 @@ export default async function Home() {
             </section>
             <section className="container mx-auto">
                 <h2 className="py-14">Categories</h2>
-                <Suspense fallback={"Loading"}>
+                <Suspense fallback={<CustomSpinner/>}>
                     <CategoryList/>
                 </Suspense>
             </section>

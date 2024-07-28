@@ -1,5 +1,4 @@
 "use client"
-// Spinner.js
 import React from 'react';
 import { ClipLoader } from 'react-spinners';
 
