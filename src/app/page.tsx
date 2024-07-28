@@ -23,8 +23,8 @@ export default async function Home() {
                 </Suspense>
 
             </section>
-            <section className="container mx-auto">
-                <h2 className="py-14">Categories</h2>
+            <section className="">
+                <h2 className="container mx-auto py-14">Categories</h2>
                 <Suspense fallback={<CustomSpinner/>}>
                     <CategoryList/>
                 </Suspense>

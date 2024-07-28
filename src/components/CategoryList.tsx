@@ -12,12 +12,12 @@ export const CategoryList = async () => {
     return (
 
 
-        <div className="overflow-x-scroll w-full scrollbar-hide overflow-y-hidden">
-            <div className="flex gap-4 md:gap-6 ">
+        <div className="overflow-x-scroll w-full scrollbar-hide overflow-y-hidden mx-4">
+            <div className="flex gap-2 md:gap-2 ">
 
                 {categories.items.map((item) => (
 
-                    <Link key={item._id} href={`/list?cat=${item.slug}`} className="flex mr-20 shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6">
+                    <Link key={item._id} href={`/list?cat=${item.slug}`} className="flex mr-2 lg:mr-12 shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6">
                         <div className="flex flex-col">
                             <div className="relative bg-slate-100 h-80 aspect-square rounded-md overflow-clip">
                                 <Image
