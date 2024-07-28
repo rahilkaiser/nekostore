@@ -25,19 +25,12 @@ export default async function ListPage({searchParams}: { searchParams: any }) {
 
             <div className="mx-auto container flex flex-col">
                 <Filter/>
-                <h3 className="mt-12 ">Shoes for you</h3>
-
                 <Suspense fallback={<CustomSpinner/>}>
                     <ProductList
                         categoryId={category.collection?._id || "00000000-000000-000000-000000000001"}
                         searchParams={searchParams}
                     />
                 </Suspense>
-
-
-                {/*    Products*/}
-
-
             </div>
 
         </div>
