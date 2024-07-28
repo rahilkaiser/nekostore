@@ -76,7 +76,7 @@ export const Filter = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="new-arrival">New Arrival</SelectItem>
-                            <SelectItem value="popularity">Popularity</SelectItem>
+                            <SelectItem value="popular">Popular</SelectItem>
                             <SelectItem value="best-sellers">Best Sellers</SelectItem>
                             <SelectItem value="recommended">Recommended</SelectItem>
                         </SelectContent>

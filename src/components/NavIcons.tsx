@@ -11,6 +11,7 @@ import {useRouter} from "next/navigation";
 import {CartModal} from "@/components/CartModal";
 import {useState} from "react";
 import {Input} from "@/components/ui/input";
+import {motion} from "framer-motion";
 
 export const NavIcons = () => {
     const router = useRouter();
@@ -37,7 +38,13 @@ export const NavIcons = () => {
 
             {searchVisible && (
                 <motion.div
-                    className="absolute left-0 top-12 w-full transition-all transform duration-500 ease-in-out ">
+                    initial={{
+                        opacity: 0,
+                    }}
+                    animate={{
+                        opacity: 1,
+                    }}
+                    className="absolute left-0 top-12 w-full   ">
                     <Input
                         type="text"
                         value={searchText}

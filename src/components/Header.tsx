@@ -1,13 +1,5 @@
 import Link from "next/link";
 import {Menu} from "@/components/Menu";
-import {CgBell, CgProfile, CgSearch, CgShoppingBag} from "react-icons/cg";
-import {
-    DropdownMenu,
-    DropdownMenuContent, DropdownMenuItem,
-    DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import {NavIcons} from "@/components/NavIcons";
 
 export const Header = () => {
@@ -16,7 +8,7 @@ export const Header = () => {
 
 
     return (
-        <div className="bg-white sticky top-0 py-8 z-40 h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <div className="z-50 bg-white sticky top-0 py-8 h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             {/*Desktop Nav*/}
             <div className="hidden container mx-auto lg:flex justify-between items-center">
                 <div className="flex items-center gap-8">

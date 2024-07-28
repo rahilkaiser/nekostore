@@ -10,6 +10,9 @@ const nextConfig = {
             },
             {
                 hostname:"i.etsystatic.com"
+            },
+            {
+                hostname:"static.wixstatic.com"
             }
         ]
     }

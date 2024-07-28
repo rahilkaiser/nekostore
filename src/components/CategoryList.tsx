@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const CategoryList = () => {
     return (
-        <div className="px-4 overflow-x-scroll flex gap-6 scrollbar-hide overflow-y-hidden">
+        <div className="overflow-x-scroll flex gap-6 scrollbar-hide overflow-y-hidden">
             <div className="flex gap-4 md:gap-8 ">
                 <Link href="/list?cat=test" className="flex shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6">
                     <div className="flex flex-col">
