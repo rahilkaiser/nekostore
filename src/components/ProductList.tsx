@@ -7,20 +7,56 @@ import DOMPurify from "isomorphic-dompurify";
 
 const PRODUCTS_PER_PAGE = 20;
 
-export const ProductList = async ({categoryId, limit, searchParams}: { categoryId: string; limit?: number; searchParams?:any }) => {
+export const ProductList = async ({categoryId, limit, searchParams}: {
+    categoryId: string;
+    limit?: number;
+    searchParams?: any
+}) => {
 
     const wixClient: any = await wixClientServer();
-    const res = await wixClient.products
-        .queryProducts()
-        .eq("collectionIds", categoryId)
-        .limit(limit || PRODUCTS_PER_PAGE)
-        .find();
 
-    console.log(res);
+    const categories = await wixClient.collections.queryCollections().find()
+
+    const getCategoryIdBySearchParams = () => {
+        const catName: string = searchParams?.others;
+        let resList: string[] = [];
+        categories.items.forEach((category: products.Collection) => {
+
+            if (catName == category.slug) {
+                resList.push(category._id!)
+            }
+        })
+
+        return resList
+    }
+
+    let queryBuilder = wixClient.products
+        .queryProducts()
+        .startsWith("name", searchParams?.name || "")
+        .hasAll("collectionIds", [categoryId, ...getCategoryIdBySearchParams()])
+        .gt("priceData.price", searchParams?.min || 0)
+        .lt("priceData.price", searchParams?.max || 99999)
+        .limit(limit || PRODUCTS_PER_PAGE);
+
+    if (searchParams?.sort) {
+        const [sortType, sortBy] = searchParams.sort.split(" ");
+
+        if (sortType === "asc") {
+            console.log(sortType, sortBy)
+            queryBuilder = queryBuilder.ascending(sortBy);
+        }
+        if (sortType === "desc") {
+            queryBuilder = queryBuilder.descending(sortBy);
+        }
+    }
+
+    const res = await queryBuilder.find();
+
     const itemsCount = res.count;
 
     return (
-        <div className={`flex mt-12 gap-x-8 gap-y-16 ${(res.items.length < 4) ? 'justify-start' : 'justify-between'} flex-wrap`}>
+        <div
+            className={`flex mt-12 gap-x-8 gap-y-16 ${(res.items.length < 4) ? 'justify-start' : 'justify-between'} flex-wrap`}>
             {res.items.map((product: products.Product) => (
                 <Link key={product._id} href={"/" + product.slug}
                       className=" w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]">

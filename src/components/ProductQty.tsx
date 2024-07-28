@@ -63,9 +63,10 @@ export const ProductQty = (
                     </div>
                 </div>
 
-                <div className="flex justify-end flex-grow"><Button
-                    className=" w-full lg:w-36 text-sm disabled:cursor-not-allowed disabled:bg-gray-500"
-                >
+                <div className={`flex justify-end flex-grow ${stockNumber == 0 && "cursor-not-allowed"}`}>
+                    <Button
+                        disabled={stockNumber==0}
+                    className="w-full lg:w-36 text-sm disabled:bg-gray-500">
                     Add to Cart
                 </Button></div>
             </div>

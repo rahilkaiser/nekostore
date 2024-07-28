@@ -18,6 +18,7 @@ export default async function SinglePage({params}: { slug: string }) {
 
     const product = products.items[0];
 
+
     return (
         <div className="container mx-auto relative flex flex-col lg:flex-row gap-16 pt-12">
 
@@ -32,6 +33,7 @@ export default async function SinglePage({params}: { slug: string }) {
                 <Separator className="my-8"/>
                 <div className="mt-12 flex gap-4 items-center">
                     {
+
                         (product.price?.price == product.price?.discountedPrice) ?
                             <h3 className="font-bold ">
                                 {product.price?.price} {product.price?.currency}

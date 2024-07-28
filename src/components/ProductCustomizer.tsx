@@ -22,14 +22,14 @@ export const ProductCustomizer = (
     const [selectedVariant, setSelectedVariant] = useState<products.Variant>();
 
     useEffect(() => {
-        const variant = variants.find(v=>{
+        const variant = variants.find(v => {
             const variantChoices = v.choices;
-            if(!variantChoices || !selectedOptions) return false;
-            return Object.entries(selectedOptions).every(([key,value]) => variantChoices[key] === value);
+            if (!variantChoices || !selectedOptions) return false;
+            return Object.entries(selectedOptions).every(([key, value]) => variantChoices[key] === value);
         })
 
         setSelectedVariant(variant)
-    },[selectedOptions, variants])
+    }, [selectedOptions, variants])
 
     const handleOptionSelection = (optionType: string, choice: string) => {
         setSelectedOptions((prevState) => ({...prevState, [optionType]: choice}));
@@ -62,8 +62,10 @@ export const ProductCustomizer = (
 
     return (
         <div className="flex flex-col gap-6">
-            {productOptions.map((productOption) => (
-                <div key={productOption.name}>
+            {productOptions.map((productOption) => {
+
+                console.log(productOption)
+                return <div key={productOption.name}>
                     {/*COLOR*/}
                     <h4 className="">Choose a {productOption.name}</h4>
 
@@ -127,8 +129,9 @@ export const ProductCustomizer = (
                         )}
                     </ul>
                 </div>
-            ))}
-            <ProductQty productId={productId} variantId={selectedVariant?._id || "00000000-000000-000000-000000000000"} stockNumber={selectedVariant?.stock?.quantity || 0}/>
+            })}
+            <ProductQty productId={productId} variantId={selectedVariant?._id || "00000000-000000-000000-000000000000"}
+                        stockNumber={selectedVariant?.stock?.quantity || 0}/>
         </div>
     );
 };
