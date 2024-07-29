@@ -18,10 +18,18 @@ export default function Register() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-    const [hasError, setHasError] = useState(false);
     const wixClient: any = useWixClient();
 
+
+
     const router = useRouter();
+
+
+    const isLoggedIn = wixClient.auth.loggedIn()
+    //
+    if (isLoggedIn) {
+        router.push("/");
+    }
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -31,7 +39,6 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        setHasError(false);
 
 
         try {
@@ -64,7 +71,6 @@ export default function Register() {
             }
         } catch (error) {
             console.log(error);
-            setHasError(true);
         } finally {
             setIsLoading(false)
         }

@@ -14,7 +14,6 @@ import CustomSpinner from "@/components/CustomSpinner";
 export default function Login() {
     const [formData, setFormData] = useState({email: '', password: ''});
     const [isLoading, setIsLoading] = useState(false);
-    const [hasError, setHasError] = useState(false);
 
     const wixClient: any = useWixClient();
     const {toast} = useToast()
@@ -37,7 +36,6 @@ export default function Login() {
 
         e.preventDefault();
         setIsLoading(true);
-        setHasError(false);
 
         console.log(formData)
 
@@ -77,7 +75,6 @@ export default function Login() {
 
         } catch (error) {
             console.log(error);
-            setHasError(true);
         } finally {
             setIsLoading(false)
         }
