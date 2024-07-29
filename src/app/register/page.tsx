@@ -6,46 +6,42 @@ import {Input} from "@/components/ui/input";
 import Link from "next/link";
 import {useWixClient} from "@/hooks/useWixClient";
 import {LoginState} from "@wix/sdk";
-import {useToast} from "@/components/ui/use-toast";
+import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
-import Cookies from "js-cookie";
 import CustomSpinner from "@/components/CustomSpinner";
 
-export default function Login() {
-    const [formData, setFormData] = useState({email: '', password: ''});
+export default function Register() {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
-
     const wixClient: any = useWixClient();
-    const {toast} = useToast()
+
     const router = useRouter();
-
-
-    const isLoggedIn = wixClient.auth.loggedIn()
-    //
-    if (isLoggedIn) {
-        router.push("/");
-    }
-
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData(prev => ({...prev, [name]: value}));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setHasError(false);
 
-        console.log(formData)
 
         try {
-            const res = await wixClient.auth.login({
+            console.log(formData);
+            const res = await wixClient.auth.register({
                 email: formData.email,
-                password: formData.password
+                password: formData.password,
+                profile: {nickname: formData.username}
             })
+            console.log(res);
 
             switch (res?.loginState) {
                 case LoginState.SUCCESS:
@@ -54,17 +50,9 @@ export default function Login() {
                         description: "You are now being redirected",
                     })
 
-                    console.log(res);
-                    const token = await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken);
-
-                    console.log(token);
-                    Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
-                        expires: 2,
-                    });
-
-                    wixClient.auth.setTokens(token);
-
-                    router.push('/');
+                    setTimeout(() => {
+                        router.push('/login');
+                    }, 1000);
                     break;
                 case LoginState.FAILURE:
                     toast({
@@ -74,13 +62,14 @@ export default function Login() {
                     })
                     break;
             }
-
         } catch (error) {
             console.log(error);
             setHasError(true);
         } finally {
             setIsLoading(false)
         }
+
+
     };
 
     return (
@@ -89,28 +78,40 @@ export default function Login() {
             {isLoading && <div className="fixed inset-0 z-50 w-screen h-screen flex justify-center items-center bg-white/50">
                 <CustomSpinner/>
             </div>}
-
             <motion.div
                 initial={{opacity: 0, scale: 0.9}}
                 animate={{opacity: 1, scale: 1}}
                 transition={{duration: 0.5}}
                 className="bg-white p-8 rounded-lg shadow-lg min-w-[320px]"
             >
-                <h1 className="text-xl font-semibold mb-4">Login</h1>
+                <h1 className="text-xl font-semibold mb-4">Register</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="email"
-                               className="block text-sm font-medium text-gray-700">E-mail</label>
+                        <label htmlFor="username"
+                               className="block text-sm font-medium text-gray-700">Username</label>
                         <Input
-                            type="email"
-                            name="email"
-                            id="email"
+                            type="text"
+                            name="username"
+                            id="username"
                             placeholder="Enter your username"
-                            value={formData.email}
                             onChange={handleInputChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  transition-all duration-300 sm:text-sm"
                         />
                     </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="email"
+                               className="block text-sm font-medium text-gray-700">E-Mail</label>
+                        <Input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your E-mail"
+                            onChange={handleInputChange}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  transition-all duration-300 sm:text-sm"
+                        />
+                    </div>
+
                     <div className="mb-6">
                         <label htmlFor="password"
                                className="block text-sm font-medium text-gray-700">Password</label>
@@ -118,22 +119,19 @@ export default function Login() {
                             type="password"
                             name="password"
                             id="password"
-                            value={formData.password}
                             placeholder="Enter your password"
                             onChange={handleInputChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  transition-all duration-300 sm:text-sm"
                         />
                     </div>
-                    <div className="py-2"><Link className="capitalize text-xs" href={"/reset-password"}>Forgot
-                        Password ?</Link></div>
                     <Button
                         type="submit"
                         className="w-full bg-accent hover:bg-accent-hover text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
                     >
-                        Log in
+                        Register
                     </Button>
-                    <div className="py-2"><Link className="capitalize text-xs" href={"/register"}>Dont <span
-                        className="lowercase">have an</span> account ? </Link></div>
+                    <div className="py-2"><Link className="capitalize text-xs" href={"/login"}>Have <span
+                        className="lowercase">an</span> account ? Login </Link></div>
                 </form>
             </motion.div>
         </div>

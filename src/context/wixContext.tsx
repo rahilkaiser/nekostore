@@ -9,7 +9,7 @@ let refreshToken = "{}";
 
 try {
     const token = Cookies.get("refreshToken");
-    if (token) {
+    if (token && token != "undefined") {
         refreshToken = JSON.parse(token);
     }
 } catch (error) {
@@ -19,7 +19,7 @@ try {
 refreshToken = refreshToken || "{}";
 
 const tokens = {
-    refreshToken: refreshToken, // Assuming refreshToken is an object with a value property
+    refreshToken: refreshToken,
     accessToken: {
         value: "",
         expiresAt: 0
