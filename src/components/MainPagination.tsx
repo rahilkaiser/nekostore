@@ -33,7 +33,6 @@ export const MainPagination = (
         params.set("page", pageNumber.toString())
         replace(`${pathName}?${params.toString()}`);
     }
-    console.log(pathName)
 
     return (
         pathName === "/list" ?

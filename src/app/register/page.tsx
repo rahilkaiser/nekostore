@@ -42,7 +42,6 @@ export default function Register() {
 
 
         try {
-            console.log(formData);
             const res = await wixClient.auth.register({
                 email: formData.email,
                 password: formData.password,

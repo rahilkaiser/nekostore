@@ -88,8 +88,7 @@ export const ProductList = async ({categoryId, limit, searchParams}: {
                                  dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(product.additionalInfoSections?.find((section: any) => section.title === "shortDesc")?.description || "")}}>
                             </div>}
                         <Button
-                            className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">Add
-                            to Cart
+                            className="rounded-2xl ring-1 ring-accent text-accent py-2 px-4 font-semibold hover:accent-accent-hover hover:text-white bg-white hover:bg-accent">View Details
                         </Button>
                     </Link>
 

@@ -5,10 +5,11 @@ import {useState} from "react";
 import {CiMenuFries} from "react-icons/ci";
 import Link from "next/link";
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
+import {useCartStore} from "@/hooks/useCartStore";
 
 export const Menu = () => {
     const [open, setOpen] = useState(false);
-
+    const {count} = useCartStore();
     return (
         <Sheet>
             <SheetTrigger className="flex justify-center items-center">
@@ -22,12 +23,12 @@ export const Menu = () => {
                 </div>
                 <nav className="flex flex-col justify-center items-center gap-8">
                         <Link href="/">Home</Link>
-                        <Link href="/">Shop</Link>
+                        <Link href="/list">Shop</Link>
                         <Link href="/">Deals</Link>
                         <Link href="/">About</Link>
                         <Link href="/">Contact</Link>
                         <Link href="/">Logout</Link>
-                        <Link href="/">Cart(1)</Link>
+                        <Link href="/">Cart({count})</Link>
                 </nav>
             </SheetContent>
         </Sheet>

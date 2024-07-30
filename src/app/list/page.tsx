@@ -12,8 +12,6 @@ export default async function ListPage({searchParams}: { searchParams: any }) {
 
     const category = await wixClient.collections.getCollectionBySlug(searchParams.cat || "all-products");
 
-    console.log(category)
-
     return (
         <div className="">
             <div className="">

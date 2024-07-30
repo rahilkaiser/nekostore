@@ -13,6 +13,9 @@ const nextConfig = {
             },
             {
                 hostname:"static.wixstatic.com"
+            },
+            {
+                hostname:"wix:image://v1"
             }
         ]
     }

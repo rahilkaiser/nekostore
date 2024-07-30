@@ -58,19 +58,17 @@ export const ProductCustomizer = (
         })
     }
 
-    console.log(selectedOptions)
-
     return (
         <div className="flex flex-col gap-6">
             {productOptions.map((productOption) => {
 
-                console.log(productOption)
-                return <div key={productOption.name}>
+                return <div
+                    key={productOption.name}>
                     {/*COLOR*/}
                     <h4 className="">Choose a {productOption.name}</h4>
 
                     <ul className="flex items-center gap-3">
-                        {productOption.choices?.map((choice: any) => {
+                        {productOption.choices?.map((choice: any, index) => {
 
                                 const isDisabled = !isVariantInStock({
                                     ...selectedOptions,
@@ -87,6 +85,7 @@ export const ProductCustomizer = (
 
                                 return productOption.name == "Color" ? (
                                     <li
+                                        key={index}
                                         className="w-8 h-8 rounded-full ring-1 ring-gray-300 relative"
                                         onClick={clickHandler}
                                         style={{
@@ -106,17 +105,21 @@ export const ProductCustomizer = (
                                     </li>
                                 ) : (
                                     !isDisabled ?
-                                        (!isSelected ? <Button
+                                        (!isSelected ?
+                                                <Button
+                                                    key={index}
                                                     onClick={clickHandler}
                                                     className="bg-white text-accent border-accent border hover:bg-pink-50">
                                                     {choice.description}
                                                 </Button> :
                                                 <Button
+                                                    key={index}
                                                     className="bg-accent-hover text-white border-accent border hover:bg-accent-hover">
-                                                    Medium
+                                                    {choice.description}
                                                 </Button>
                                         )
                                         : <Button
+                                            key={index}
                                             onClick={clickHandler}
                                             className="text-gray-600 border-accent border hover:bg-pink-200 cursor-not-allowed bg-pink-200 relative">
                                             <div

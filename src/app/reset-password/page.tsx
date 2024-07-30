@@ -31,7 +31,6 @@ export default function ResetPassword() {
         e.preventDefault();
         setIsLoading(true);
         try {
-            console.log(formData.email)
 
             const res = await wixClient.auth.sendPasswordResetEmail(
                 formData.email,

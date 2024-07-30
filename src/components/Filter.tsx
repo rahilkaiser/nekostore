@@ -13,7 +13,6 @@ export const Filter = () => {
 
 
     function handleFilterChange(value: string, type: string) {
-        console.log(value, type)
         const params = new URLSearchParams(searchParams);
         params.set(type, value);
         replace(`${pathName}?${params.toString()}`)

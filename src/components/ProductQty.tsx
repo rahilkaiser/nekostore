@@ -3,6 +3,7 @@ import {Button} from "@/components/ui/button";
 import {CgMathMinus, CgMathPlus, CgShoppingBag} from "react-icons/cg";
 import {useEffect, useState} from "react";
 import {useWixClient} from "@/hooks/useWixClient";
+import {useCartStore} from "@/hooks/useCartStore";
 
 export const ProductQty = (
     {
@@ -18,8 +19,10 @@ export const ProductQty = (
 
     const [quantity, setQuantity] = useState(1);
 
+    const {addItem} = useCartStore();
+
     // Temp
-    const stock = 4;
+    // const stock = 4;
 
     function handleQty(qty: string) {
         if (qty === "decrease" && quantity > 1) {
@@ -29,14 +32,13 @@ export const ProductQty = (
         }
     }
 
-    const wixClient = useWixClient();
+    const wixClient:any = useWixClient();
 
-    useEffect(()=> {
-       if (stockNumber<quantity && stockNumber > 0) {
-           setQuantity(stockNumber)
-       }
-    },[stockNumber])
-
+    useEffect(() => {
+        if (stockNumber < quantity && stockNumber > 0) {
+            setQuantity(stockNumber)
+        }
+    }, [stockNumber])
 
     return (
         <div className="flex flex-col gap-4">
@@ -57,7 +59,8 @@ export const ProductQty = (
                             Product is out of stock
                         </div>) : (
                             <div className="text-xs">Only <span
-                                className="text-accent font-semibold">{stockNumber} items</span> left! <br/>{"Don't"} miss it
+                                className="text-accent font-semibold">{stockNumber} items</span> left! <br/>{"Don't"} miss
+                                it
                             </div>
                         )}
                     </div>
@@ -65,10 +68,13 @@ export const ProductQty = (
 
                 <div className={`flex justify-end flex-grow ${stockNumber == 0 && "cursor-not-allowed"}`}>
                     <Button
-                        disabled={stockNumber==0}
-                    className="w-full lg:w-36 text-sm disabled:bg-gray-500">
-                    Add to Cart
-                </Button></div>
+                        onClick={() => {
+                            addItem(wixClient,productId, variantId, quantity)
+                        }}
+                        disabled={stockNumber == 0}
+                        className="w-full lg:w-36 text-sm disabled:bg-gray-500">
+                        Add to Cart
+                    </Button></div>
             </div>
 
         </div>

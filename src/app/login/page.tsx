@@ -37,8 +37,6 @@ export default function Login() {
         e.preventDefault();
         setIsLoading(true);
 
-        console.log(formData)
-
         try {
             const res = await wixClient.auth.login({
                 email: formData.email,
@@ -52,10 +50,8 @@ export default function Login() {
                         description: "You are now being redirected",
                     })
 
-                    console.log(res);
                     const token = await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken);
 
-                    console.log(token);
                     Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
                         expires: 2,
                     });

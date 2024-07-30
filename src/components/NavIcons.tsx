@@ -9,12 +9,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {useRouter} from "next/navigation";
 import {CartModal} from "@/components/CartModal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {motion} from "framer-motion";
 import Cookies from "js-cookie";
 import {useWixClient} from "@/hooks/useWixClient";
 import CustomSpinner from "@/components/CustomSpinner";
+import {useCartStore} from "@/hooks/useCartStore";
+import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 
 export default function NavIcons() {
     const router = useRouter();
@@ -24,6 +26,13 @@ export default function NavIcons() {
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const {cart, getCart, count} = useCartStore();
+
+    useEffect(() => {
+            getCart(wixClient);
+        }, [wixClient, getCart, count]
+    );
 
     function handleProfile() {
         if (!isLoggedIn) {
@@ -105,21 +114,24 @@ export default function NavIcons() {
                         className="text-[26px] cursor-pointer hover:text-accent duration-300"></CgBell>
 
                     {/*Shopping Cart*/}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                    <Sheet>
+                        <SheetTrigger asChild>
                             <div className="relative cursor-pointer ">
                                 <CgShoppingBag className="text-[26px] hover:text-accent duration-300"/>
                                 <div
-                                    className="bg-accent w-[18px] h-[18px] absolute -right-1 -bottom-1 rounded-full text-white flex items-center justify-center text-sm font-bold pointer-events-none">3
+                                    className="bg-accent w-[18px] h-[18px] absolute -right-1 -bottom-1 rounded-full text-white flex items-center justify-center text-sm font-bold pointer-events-none">{count}
                                 </div>
                             </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Shopping Cart</DropdownMenuLabel>
-                            <DropdownMenuSeparator/>
+                        </SheetTrigger>
+                        <SheetContent className={"flex flex-col"}>
+                            <SheetHeader>
+                                <SheetTitle>Shopping Cart </SheetTitle>
+                            </SheetHeader>
+
                             <CartModal/>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+
+                        </SheetContent>
+                    </Sheet>
                 </div>
             }</>
     );
