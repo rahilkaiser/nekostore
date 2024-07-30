@@ -11,20 +11,13 @@ import {SheetFooter} from "@/components/ui/sheet";
 import {FaX} from "react-icons/fa6";
 import {useState} from "react";
 import {CgMathMinus, CgMathPlus} from "react-icons/cg";
-import {CartItem} from "@/components/CartItem";
+import {currentCart} from "@wix/ecom";
 
 
 export const CartModal = () => {
 
-    const [quantity, setQuantity] = useState(1);
 
-    // function handleQty(qty: string, stockNumber : number) {
-    //     if (qty === "decrease" && quantity > 1) {
-    //         setQuantity(quantity - 1);
-    //     } else if (qty === "increase" && quantity < stockNumber) {
-    //         setQuantity(quantity + 1);
-    //     }
-    // }
+
 
     const router = useRouter();
     const wixClient: any = useWixClient();
