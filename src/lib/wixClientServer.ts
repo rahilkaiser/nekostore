@@ -1,4 +1,4 @@
-import {createClient, OAuthStrategy, Tokens} from "@wix/sdk";
+import {createClient, OAuthStrategy, Tokens, WixClient} from "@wix/sdk";
 import {collections, products} from "@wix/stores";
 import {cookies} from "next/headers"
 import {members} from "@wix/members";

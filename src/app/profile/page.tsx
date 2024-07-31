@@ -1,26 +1,25 @@
-"use client"
-import {useToast} from "@/components/ui/use-toast";
-import {useState} from "react";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
+import UserProfile from "@/components/UserProfile";
+import {wixClientServer} from "@/lib/wixClientServer";
+import {members} from "@wix/members";
+import {GetCurrentMemberOptions} from "@wix/members_members";
 
-export default function Profile() {
-    const {toast} = useToast();
-    const [email, setEmail] = useState("");
+export default async function Profile() {
 
-    const SaveChangesNotify = async () => {
+    const wixClient: any = await wixClientServer();
 
-        toast({
-            duration:8000,
-            className: "bg-green-200",
-            title: "Success !",
-            description: "User was successfully updated!",
-        })
-    };
+    const user = await wixClient.members.getCurrentMember({
+        fieldsets:[members.Set.FULL],
+    });
+
+    console.log(user);
+
+    if (!user.member?.contactId) {
+        return <div className="">Not logged in!</div>;
+    }
 
     return (
-        <div className="container mx-auto flex flex-col justify-center items-center h-96">
-            Profile Page
+        <div>
+            <UserProfile currentUser={user}/>
         </div>
     );
 }
