@@ -10,21 +10,23 @@ import {useToast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
 import Cookies from "js-cookie";
 import CustomSpinner from "@/components/CustomSpinner";
+import {useAuthStore} from "@/hooks/useAuthStore";
 
 export default function Login() {
     const [formData, setFormData] = useState({email: '', password: ''});
     const [isLoading, setIsLoading] = useState(false);
+    const {isLoggedIn, setIsLoggedIn} = useAuthStore();
 
     const wixClient: any = useWixClient();
     const {toast} = useToast()
     const router = useRouter();
 
 
-    const isLoggedIn = wixClient.auth.loggedIn()
+    // const isLoggedIn = wixClient.auth.loggedIn()
     //
-    if (isLoggedIn) {
-        router.push("/");
-    }
+    // if (isLoggedIn) {
+    //     router.push("/");
+    // }
 
 
     const handleInputChange = (e) => {
@@ -46,19 +48,25 @@ export default function Login() {
             switch (res?.loginState) {
                 case LoginState.SUCCESS:
                     toast({
+                        duration: 1000,
                         title: "Successfully logged in !",
                         description: "You are now being redirected",
                     })
+                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((token) => {
 
-                    const token = await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken);
+                        setIsLoading(false)
 
-                    Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
-                        expires: 2,
+                        Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
+                            expires: 2,
+                        });
+
+                        wixClient.auth.setTokens(token);
+                        router.refresh()
+                        setIsLoggedIn(wixClient.auth.loggedIn())
+                        router.replace('/');
                     });
 
-                    wixClient.auth.setTokens(token);
 
-                    router.push('/');
                     break;
                 case LoginState.FAILURE:
                     toast({
@@ -66,22 +74,22 @@ export default function Login() {
                         title: "Uh oh! Something went wrong.",
                         description: "There was a problem with your request.",
                     })
+                    setIsLoading(false)
                     break;
             }
 
         } catch (error) {
             console.log(error);
-        } finally {
-            setIsLoading(false)
         }
     };
 
     return (
 
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            {isLoading && <div className="fixed inset-0 z-50 w-screen h-screen flex justify-center items-center bg-white/50">
-                <CustomSpinner/>
-            </div>}
+            {isLoading &&
+                <div className="fixed inset-0 z-50 w-screen h-screen flex justify-center items-center bg-white/50">
+                    <CustomSpinner/>
+                </div>}
 
             <motion.div
                 initial={{opacity: 0, scale: 0.9}}

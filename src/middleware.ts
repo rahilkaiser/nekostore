@@ -1,29 +1,22 @@
-import {NextRequest, NextResponse} from "next/server";
-import {createClient, OAuthStrategy} from "@wix/sdk";
+import { OAuthStrategy, createClient } from "@wix/sdk";
+import { NextRequest, NextResponse } from "next/server";
 
-export const middleware = async (req:NextRequest) => {
+export const middleware = async (request: NextRequest) => {
+    const cookies = request.cookies;
+    const res = NextResponse.next();
 
-    // Creates a visitor token such that users that are not logged in can add items to the cart
-    // Visitor token will be added as a Cookie
-
-    const cookies = req.cookies;
-
-    const res = NextResponse.next()
-
-    const refreshToken = cookies["refreshToken"];
-
-    if (refreshToken) {
-        console.log("RefreshToken is available");
+    if (cookies.get("refreshToken")) {
         return res;
     }
 
     const wixClient = createClient({
-        auth: OAuthStrategy({clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID}),
+        auth: OAuthStrategy({ clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID! }),
     });
 
     const tokens = await wixClient.auth.generateVisitorTokens();
-
-    res.cookies.set("refreshToken" as any, JSON.stringify(tokens.refreshToken) as any, { maxAge: (60*60*24*10) } as any);
+    res.cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+        maxAge: 60 * 60 * 24 * 30,
+    });
 
     return res;
-}
+};

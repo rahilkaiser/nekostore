@@ -1,6 +1,7 @@
 import {createClient, OAuthStrategy, Tokens} from "@wix/sdk";
 import {collections, products} from "@wix/stores";
 import {cookies} from "next/headers"
+import {members} from "@wix/members";
 
 
 export const wixClientServer = async () => {
@@ -10,13 +11,14 @@ export const wixClientServer = async () => {
         const cookieStore: any = cookies()
         const token = cookieStore.get("refreshToken")?.value;
         if (token) {
-            refreshToken = JSON.parse(token);
+            refreshToken = JSON.parse(token) as string;
+
         }
     } catch (error) {
         console.error("Failed to parse refreshToken:", error);
     }
 
-    refreshToken = refreshToken || "{}";
+    refreshToken = (refreshToken || "{}") as string;
 
     const tokens = {
         refreshToken: refreshToken,
@@ -29,7 +31,8 @@ export const wixClientServer = async () => {
     const wixClient = createClient({
         modules: {
             products,
-            collections
+            collections,
+            members
         },
         auth: OAuthStrategy({
             clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID as string,

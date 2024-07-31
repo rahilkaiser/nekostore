@@ -17,25 +17,29 @@ import {useWixClient} from "@/hooks/useWixClient";
 import CustomSpinner from "@/components/CustomSpinner";
 import {useCartStore} from "@/hooks/useCartStore";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {wixClientServer} from "@/lib/wixClientServer";
+import {useAuthStore} from "@/hooks/useAuthStore";
 
 export default function NavIcons() {
     const router = useRouter();
     const wixClient: any = useWixClient();
-
-    const isLoggedIn = wixClient.auth.loggedIn()
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const {cart, getCart, count} = useCartStore();
+    const {isLoggedIn, setIsLoggedIn} = useAuthStore();
 
     useEffect(() => {
-            getCart(wixClient);
+
+        getCart(wixClient);
+
         }, [wixClient, getCart, count]
     );
 
     function handleProfile() {
         if (!isLoggedIn) {
+
             router.push("/login");
         }
     }
@@ -44,9 +48,14 @@ export default function NavIcons() {
     async function handleLogout() {
         setIsLoading(true);
         Cookies.remove("refreshToken");
-        const {logoutUrl} = await wixClient.auth.logout();
-        router.push("/login")
-        setIsLoading(false);
+        await wixClient.auth.logout().then(
+            (logoutUrl) => {
+                setIsLoggedIn(false);
+                router.push("/login")
+                setIsLoading(false);
+            }
+        );
+
     }
 
     return (<>

@@ -19,6 +19,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@wix/ecom": "^1.0.673",
+    "@wix/members": "^1.0.90",
     "@wix/sdk": "^1.12.8",
     "@wix/stores": "^1.0.168",
     "class-variance-authority": "^0.7.0",

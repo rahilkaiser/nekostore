@@ -29,10 +29,6 @@ export default async function Home() {
                     <CategoryList/>
                 </Suspense>
             </section>
-            {/*<section className="container mx-auto">*/}
-            {/*    <h2 className="p-14">New Products</h2>*/}
-            {/*    <ProductList />*/}
-            {/*</section>*/}
         </div>
     );
 }
