@@ -4,7 +4,6 @@ import {ProductCustomizer} from "@/components/ProductCustomizer";
 import {ProductQty} from "@/components/ProductQty";
 import {wixClientServer} from "@/lib/wixClientServer";
 import {notFound} from "next/navigation";
-import {any} from "prop-types";
 
 export default async function SinglePage({params}: { params: any }) {
 
