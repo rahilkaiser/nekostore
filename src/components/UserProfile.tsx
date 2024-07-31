@@ -9,6 +9,7 @@ import {useRouter} from "next/navigation";
 import {resetPassword, updateUser} from "@/lib/actions";
 import {wixClientServer} from "@/lib/wixClientServer";
 import {useWixClient} from "@/hooks/useWixClient";
+import {router} from "next/client";
 
 export default function UserProfile({currentUser}: { currentUser: any }) {
     const {toast} = useToast();
@@ -18,6 +19,10 @@ export default function UserProfile({currentUser}: { currentUser: any }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const wixClient: any = useWixClient();
+
+    if(!wixClient.auth.loggedIn()) {
+        router.push("/login");
+    }
 
     useEffect(() => {
         setUsername(currentUser.member?.profile?.nickname || "");

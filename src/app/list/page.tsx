@@ -16,8 +16,8 @@ export default async function ListPage({searchParams}: { searchParams: any }) {
         <div className="">
             <div className="">
                 <div className=""></div>
-                <div className="relative min-h-80">
-                    <Image src="/banner1.avif" alt="" fill className="object-cover"/>
+                <div className="relative lg:h-56 ">
+                    <Image src="/banner.webp" alt="" fill className="object-cover"/>
                 </div>
             </div>
 

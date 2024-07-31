@@ -11,6 +11,8 @@ export const Filter = () => {
     const searchParams = useSearchParams();
     const {replace} = useRouter();
 
+    const catOthersList = ["new-arrival", "popular", "best-sellers", "recommended"]
+    const catList = ["t-shirt", "hoodies", "jacket", "pants", "all-products"]
 
     function handleFilterChange(value: string, type: string) {
         const params = new URLSearchParams(searchParams);
@@ -22,60 +24,75 @@ export const Filter = () => {
         replace(`${pathName}`)
     }
 
+    function getInitalSearchParams(type: string) {
+        const params = new URLSearchParams(searchParams);
+        console.log(params.get(type))
+
+        switch (type) {
+            case "cat":
+                if (params.get(type)) {
+                    const valCat = params.get(type)
+                    if (catList.includes(valCat)) {
+                        return valCat;
+                    }
+                }
+                return "all-products";
+            case "others":
+                if (params.get("cat") || params.get(type)) {
+                    const valOther = params.get("cat") || params.get(type);
+                    if (catOthersList.includes(valOther)) {
+                        console.log(valOther)
+                        return valOther;
+                    }
+                }
+                return "recommended";
+            case "min":
+                if (params.get(type)) {
+                    return params.get(type)
+                }
+                return "";
+            case "max":
+                if (params.get(type)) {
+                    return params.get(type)
+                }
+                return "";
+
+            default:
+
+        }
+    }
+
     return (
         <div className="mt-12 flex flex-col gap-4 ">
             <div className="flex justify-between">
-                <div className="flex gap-6">
+                <div className="flex gap-6 flex-col lg:flex-row justify-center items-center w-full">
                     <Input
-                        onChange={(e) => {handleFilterChange(e.target.value, "min")}}
+                        defaultValue={getInitalSearchParams("min")}
+                        onChange={(e) => {
+                            handleFilterChange(e.target.value, "min")
+                        }}
                         type="text"
                         name="min"
                         placeholder="min price"
                         className="text-xs rounded transition-all duration-300 max-w-28"
                     />
                     <Input
-                        onChange={(e) => {handleFilterChange(e.target.value, "max")}}
+                        defaultValue={getInitalSearchParams("max")}
+                        onChange={(e) => {
+                            handleFilterChange(e.target.value, "max")
+                        }}
                         type="text"
                         name="max"
                         placeholder="max price"
                         className="text-xs rounded transition-all duration-300 max-w-28"
                     />
 
-                    {/*<Select*/}
-                    {/*    name={"sizes"}*/}
-                    {/*    onValueChange={(value) => {handleFilterChange(value, "sizes")}}*/}
-                    {/*    defaultValue="all sizes">*/}
-                    {/*    <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">*/}
-                    {/*        <SelectValue placeholder="Size"/>*/}
-                    {/*    </SelectTrigger>*/}
-                    {/*    <SelectContent>*/}
-                    {/*        <SelectItem value="s">S</SelectItem>*/}
-                    {/*        <SelectItem value="m">M</SelectItem>*/}
-                    {/*        <SelectItem value="l">L</SelectItem>*/}
-                    {/*        <SelectItem value="xl">XL</SelectItem>*/}
-                    {/*        <SelectItem value="all sizes">All Sizes</SelectItem>*/}
-                    {/*    </SelectContent>*/}
-                    {/*</Select>*/}
-
-                    {/*<Select*/}
-                    {/*    name={"colors"}*/}
-                    {/*    onValueChange={(value) => {handleFilterChange(value, "colors")}}*/}
-                    {/*    defaultValue="all colors">*/}
-                    {/*    <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">*/}
-                    {/*        <SelectValue placeholder="Color"/>*/}
-                    {/*    </SelectTrigger>*/}
-                    {/*    <SelectContent>*/}
-                    {/*        <SelectItem value="red">Red</SelectItem>*/}
-                    {/*        <SelectItem value="green">Green</SelectItem>*/}
-                    {/*        <SelectItem value="blue">Blue</SelectItem>*/}
-                    {/*        <SelectItem value="all colors">All Colors</SelectItem>*/}
-                    {/*    </SelectContent>*/}
-                    {/*</Select>*/}
-
                     <Select
                         name={"cat"}
-                        onValueChange={(value) => {handleFilterChange(value, "cat")}}
-                        defaultValue="all-products">
+                        onValueChange={(value) => {
+                            handleFilterChange(value, "cat")
+                        }}
+                        defaultValue={getInitalSearchParams("cat")}>
                         <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
                             <SelectValue placeholder="Category"/>
                         </SelectTrigger>
@@ -90,8 +107,10 @@ export const Filter = () => {
 
                     <Select
                         name={"others"}
-                        onValueChange={(value) => {handleFilterChange(value, "others")}}
-                        defaultValue="recommended">
+                        onValueChange={(value) => {
+                            handleFilterChange(value, "others")
+                        }}
+                        defaultValue={getInitalSearchParams("others")}>
                         <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
                             <SelectValue placeholder="Others"/>
                         </SelectTrigger>
@@ -102,26 +121,30 @@ export const Filter = () => {
                             <SelectItem value="recommended">Recommended</SelectItem>
                         </SelectContent>
                     </Select>
-                </div>
-                <div className="ml-24">
-                    <Select
-                        name={"sort"}
-                        onValueChange={(value) => {handleFilterChange(value, "sort")}}
-                    >
-                        <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
-                            <SelectValue placeholder="Sort by"/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="asc price">Price (low to high)</SelectItem>
-                            <SelectItem value="desc price">Price (high to low)</SelectItem>
-                            <SelectItem value="asc lastUpdated">Newest</SelectItem>
-                            <SelectItem value="desc lastUpdated">Oldest</SelectItem>
-                        </SelectContent>
-                    </Select>
+
+                    <div className="lg:ml-24">
+                        <Select
+                            name={"sort"}
+                            onValueChange={(value) => {
+                                handleFilterChange(value, "sort")
+                            }}
+                        >
+                            <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
+                                <SelectValue placeholder="Sort by"/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="asc price">Price (low to high)</SelectItem>
+                                <SelectItem value="desc price">Price (high to low)</SelectItem>
+                                <SelectItem value="asc lastUpdated">Newest</SelectItem>
+                                <SelectItem value="desc lastUpdated">Oldest</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
 
+
             </div>
-            <div className="flex">
+            <div className="flex justify-center lg:justify-start">
                 <Button onClick={clearFilters}>
                     Clear All Filters
                 </Button>

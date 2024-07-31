@@ -38,6 +38,9 @@ export default function NavIcons() {
     );
 
     function handleProfile() {
+        if(isLoggedIn) {
+            setIsLoggedIn(wixClient.auth.loggedIn());
+        }
         if (!isLoggedIn) {
 
             router.push("/login");
