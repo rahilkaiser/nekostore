@@ -31,18 +31,15 @@ export default function NavIcons() {
     const {isLoggedIn, setIsLoggedIn} = useAuthStore();
 
     useEffect(() => {
-
+        setIsLoggedIn(wixClient.auth.loggedIn());
         getCart(wixClient);
 
         }, [wixClient, getCart, count]
     );
 
-    function handleProfile() {
-        if(isLoggedIn) {
-            setIsLoggedIn(wixClient.auth.loggedIn());
-        }
-        if (!isLoggedIn) {
+    async function handleProfile() {
 
+        if (!isLoggedIn) {
             router.push("/login");
         }
     }

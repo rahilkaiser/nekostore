@@ -38,7 +38,7 @@ export const ProductQty = (
         if (stockNumber < quantity && stockNumber > 0) {
             setQuantity(stockNumber)
         }
-    }, [stockNumber])
+    }, [stockNumber, quantity])
 
     return (
         <div className="flex flex-col gap-4">
