@@ -1,6 +1,6 @@
 "use client"
 import {motion} from 'framer-motion';
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import Link from "next/link";
@@ -22,12 +22,12 @@ export default function ResetPassword() {
         router.push("/");
     }
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormData(prev => ({...prev, [name]: value}));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         try {

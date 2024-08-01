@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import {useWixClient} from "@/hooks/useWixClient";
 import {wixClientServer} from "@/lib/wixClientServer";
 
 export const CategoryList = async () => {
@@ -15,7 +14,7 @@ export const CategoryList = async () => {
         <div className="overflow-x-scroll w-full scrollbar-hide overflow-y-hidden mx-4">
             <div className="flex gap-2 md:gap-2 ">
 
-                {categories.items.map((item) => (
+                {categories.items.map((item:any) => (
 
                     <Link key={item._id} href={`/list?cat=${item.slug}`} className="flex mr-2 lg:mr-12 shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6">
                         <div className="flex flex-col">

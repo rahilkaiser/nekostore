@@ -1,11 +1,11 @@
 "use client"
 import {motion} from 'framer-motion';
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import Link from "next/link";
 import {useWixClient} from "@/hooks/useWixClient";
-import {LoginState} from "@wix/sdk";
+import {LoginState, Tokens} from "@wix/sdk";
 import {useToast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
 import Cookies from "js-cookie";
@@ -29,7 +29,7 @@ export default function Login() {
     // }
 
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormData(prev => ({...prev, [name]: value}));
     };
@@ -52,7 +52,7 @@ export default function Login() {
                         title: "Successfully logged in !",
                         description: "You are now being redirected",
                     })
-                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((token) => {
+                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((token:Tokens) => {
 
                         setIsLoading(false)
 

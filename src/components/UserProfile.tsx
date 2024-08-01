@@ -4,10 +4,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useToast} from "@/components/ui/use-toast";
 import CustomSpinner from "@/components/CustomSpinner";
-import {GetMyMemberResponse} from "@wix/members_members";
-import {useRouter} from "next/navigation";
-import {resetPassword, updateUser} from "@/lib/actions";
-import {wixClientServer} from "@/lib/wixClientServer";
+import {updateUser} from "@/lib/actions";
 import {useWixClient} from "@/hooks/useWixClient";
 import {router} from "next/client";
 
@@ -67,8 +64,7 @@ export default function UserProfile({currentUser}: { currentUser: any }) {
         }
     };
 
-    const handleResetPassword = async (e, email) => {
-
+    const handleResetPassword = async (e:any, email:string) => {
         e.preventDefault();
         setIsLoading(true);
         try {

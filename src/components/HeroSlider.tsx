@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
-import {Autoplay, Pagination} from "swiper/modules";
+import {Autoplay} from "swiper/modules";
 
 const slides = [
     {
@@ -38,7 +38,7 @@ const slides = [
 export const HeroSlider = () => {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-    const swiperRef = useRef(null);
+    const swiperRef = useRef<any>(null);
 
     const handleSlideChange = (index: number) => {
         setCurrentSlide(index);

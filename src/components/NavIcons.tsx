@@ -49,7 +49,7 @@ export default function NavIcons() {
         setIsLoading(true);
         Cookies.remove("refreshToken");
         await wixClient.auth.logout().then(
-            (logoutUrl) => {
+            (logoutUrl:string) => {
                 setIsLoggedIn(false);
                 router.push("/login")
                 setIsLoading(false);

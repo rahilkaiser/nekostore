@@ -72,7 +72,7 @@ export const CartModal = () => {
                                                     <CgMathPlus className="font-bold cursor-pointer text-xl"
                                                                 onClick={() => {
                                                                     console.log(item)
-                                                                    if (item.quantity < item.availability?.quantityAvailable!) {
+                                                                    if (item.quantity && item.quantity < item.availability?.quantityAvailable!) {
                                                                         addItem(wixClient, item.catalogReference?.catalogItemId!, item.catalogReference?.options?.variantId!, 1)
                                                                     }
                                                                 }}
@@ -80,7 +80,12 @@ export const CartModal = () => {
                                                 </div>
 
                                                 <span
-                                                    className="flex-shrink-0 text-xl font-bold">{item.quantity * item.price?.amount} €
+                                                    className="flex-shrink-0 text-xl font-bold">
+                                                    {
+                                                        (item.quantity && item.price?.amount) &&
+                                                        item.quantity! * parseInt(item.price?.amount!)
+
+                                                    } €
                                                 </span>
                                             </div>
                                         </div>
@@ -98,7 +103,7 @@ export const CartModal = () => {
                         <div className="flex flex-col justify-center gap-2 w-full">
                             <div className="flex px-2 justify-between items-center">
                                 <div><span className=" font-semibold">Subtotal</span></div>
-                                <div><span className=" font-semibold">{cart.subtotal.amount} €</span></div>
+                                <div><span className=" font-semibold">{(cart as any).subtotal.amount} €</span></div>
                             </div>
                             <div className="px-2 text-primary/80 text-sm">
                                 <p>Shipping and taxes calculated at checkout</p>

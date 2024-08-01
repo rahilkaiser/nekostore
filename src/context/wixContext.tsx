@@ -1,6 +1,6 @@
 "use client"
 
-import {createClient, OAuthStrategy, Token, Tokens, WixClient} from "@wix/sdk";
+import {createClient, OAuthStrategy} from "@wix/sdk";
 import {products, collections} from "@wix/stores";
 import Cookies from "js-cookie";
 import {createContext, ReactNode} from "react";
@@ -35,12 +35,12 @@ const wixClient = createClient({
     },
     auth: OAuthStrategy({
         clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID as string,
-        tokens: tokens as Tokens,
+        tokens: tokens as any,
     })
 });
 export type WixClient = typeof wixClient;
-export const  WixClientContext = createContext<WixClient>(wixClient as WixClient)
+export const  WixClientContext = createContext<WixClient>(wixClient as any)
 export  const WixClientContextProvider = ({children}:{children:ReactNode}) => {
-    return <WixClientContext.Provider value={wixClient as WixClient}>{children}</WixClientContext.Provider>
+    return <WixClientContext.Provider value={wixClient as any}>{children}</WixClientContext.Provider>
 
 }

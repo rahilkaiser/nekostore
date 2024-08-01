@@ -1,4 +1,4 @@
-import {createClient, OAuthStrategy, Tokens, WixClient} from "@wix/sdk";
+import {createClient, OAuthStrategy} from "@wix/sdk";
 import {collections, products} from "@wix/stores";
 import {cookies} from "next/headers"
 import {members} from "@wix/members";
@@ -28,7 +28,7 @@ export const wixClientServer = async () => {
         }
     };
 
-    const wixClient = createClient({
+    return createClient({
         modules: {
             products,
             collections,
@@ -36,9 +36,7 @@ export const wixClientServer = async () => {
         },
         auth: OAuthStrategy({
             clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID as string,
-            tokens: tokens as Tokens,
+            tokens: tokens as any,
         })
     });
-
-    return wixClient;
 }

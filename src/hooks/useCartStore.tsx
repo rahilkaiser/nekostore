@@ -8,7 +8,7 @@ type CartState = {
     isLoading: boolean;
     count: number;
     getCart: (wixClient:WixClient|any) => void,
-    addItem: (wixClient:WixClient|any, productId:string, variantId:string, quantity:number) => void,
+    addItem: (wixClient:WixClient|any, productId:string, variantId:string|undefined, quantity:number) => void,
     removeItem: (wixClient:WixClient|any,itemID:string) => void,
     decreaseItem: (wixClient:WixClient|any,itemID:string) => void,
 }
@@ -74,11 +74,11 @@ export const useCartStore = create<CartState>((set) => ({
         const currentCart = await wixClient.currentCart.getCurrentCart();
         const lineItems = currentCart.lineItems;
 
-        const newLineItems:Array<LineItemQuantityUpdate> = lineItems.map((lineItem) => {
+        const newLineItems:Array<LineItemQuantityUpdate> = lineItems.map((lineItem:LineItemQuantityUpdate) => {
             if(lineItem._id === itemId) {
                 return {
                     _id: lineItem._id,
-                    quantity: lineItem.quantity == 0 ? 0 : lineItem.quantity - 1
+                    quantity: lineItem.quantity! == 0 ? 0 : lineItem.quantity! - 1
                 };
 
             }

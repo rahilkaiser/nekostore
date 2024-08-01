@@ -3,7 +3,6 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {valueOf} from "clsx";
 
 export const Filter = () => {
 
@@ -32,7 +31,7 @@ export const Filter = () => {
             case "cat":
                 if (params.get(type)) {
                     const valCat = params.get(type)
-                    if (catList.includes(valCat)) {
+                    if (valCat && catList.includes(valCat)) {
                         return valCat;
                     }
                 }
@@ -40,7 +39,7 @@ export const Filter = () => {
             case "others":
                 if (params.get("cat") || params.get(type)) {
                     const valOther = params.get("cat") || params.get(type);
-                    if (catOthersList.includes(valOther)) {
+                    if (valOther && catOthersList.includes(valOther)) {
                         console.log(valOther)
                         return valOther;
                     }
@@ -58,7 +57,7 @@ export const Filter = () => {
                 return "";
 
             default:
-
+                return ""
         }
     }
 
@@ -67,7 +66,7 @@ export const Filter = () => {
             <div className="flex justify-between">
                 <div className="flex gap-6 flex-col lg:flex-row justify-center items-center w-full">
                     <Input
-                        defaultValue={getInitalSearchParams("min")}
+                        defaultValue={getInitalSearchParams("min")!}
                         onChange={(e) => {
                             handleFilterChange(e.target.value, "min")
                         }}
@@ -77,7 +76,7 @@ export const Filter = () => {
                         className="text-xs rounded transition-all duration-300 max-w-28"
                     />
                     <Input
-                        defaultValue={getInitalSearchParams("max")}
+                        defaultValue={getInitalSearchParams("max")!}
                         onChange={(e) => {
                             handleFilterChange(e.target.value, "max")
                         }}
@@ -92,7 +91,7 @@ export const Filter = () => {
                         onValueChange={(value) => {
                             handleFilterChange(value, "cat")
                         }}
-                        defaultValue={getInitalSearchParams("cat")}>
+                        defaultValue={getInitalSearchParams("cat")!}>
                         <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
                             <SelectValue placeholder="Category"/>
                         </SelectTrigger>
@@ -110,7 +109,7 @@ export const Filter = () => {
                         onValueChange={(value) => {
                             handleFilterChange(value, "others")
                         }}
-                        defaultValue={getInitalSearchParams("others")}>
+                        defaultValue={getInitalSearchParams("others")!}>
                         <SelectTrigger className="w-[180px] border-black border-2 focus:border-none">
                             <SelectValue placeholder="Others"/>
                         </SelectTrigger>

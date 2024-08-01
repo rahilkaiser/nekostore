@@ -13,7 +13,7 @@ interface ImageData {
 
 export const ProductImage = ({images}:{images: any}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const swiperRef = useRef(null);
+    const swiperRef = useRef<any>(null);
     const handleSlideChange = (index: number) => {
         setCurrentIndex(index);
         if (swiperRef.current) {
@@ -32,7 +32,7 @@ export const ProductImage = ({images}:{images: any}) => {
                 onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
                 initialSlide={currentIndex}
             >
-                {images.map((image, index) => (
+                {images.map((image:any, index:number) => (
                     <SwiperSlide key={image._id}>
                         <div className="relative aspect-square w-full">
                             <Image
@@ -48,7 +48,7 @@ export const ProductImage = ({images}:{images: any}) => {
             </Swiper>
 
             <div className="flex space-x-4 mt-4 justify-center">
-                {images.map((image, index) => (
+                {images.map((image:any, index:number) => (
                     <div
                         key={image._id}
                         className={`w-14 h-14 cursor-pointer transition-transform transform ${
