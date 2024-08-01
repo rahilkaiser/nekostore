@@ -47,7 +47,6 @@ export default function Register() {
                 password: formData.password,
                 profile: {nickname: formData.username}
             })
-            console.log(res);
 
             switch (res?.loginState) {
                 case LoginState.SUCCESS:

@@ -17,7 +17,6 @@ import {useWixClient} from "@/hooks/useWixClient";
 import CustomSpinner from "@/components/CustomSpinner";
 import {useCartStore} from "@/hooks/useCartStore";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import {wixClientServer} from "@/lib/wixClientServer";
 import {useAuthStore} from "@/hooks/useAuthStore";
 
 export default function NavIcons() {
@@ -34,11 +33,11 @@ export default function NavIcons() {
         setIsLoggedIn(wixClient.auth.loggedIn());
         getCart(wixClient);
 
-        }, [wixClient, getCart, count]
+        }, [wixClient, getCart, count, setIsLoggedIn]
     );
 
     async function handleProfile() {
-
+        setIsLoggedIn(wixClient.auth.loggedIn())
         if (!isLoggedIn) {
             router.push("/login");
         }

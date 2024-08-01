@@ -8,12 +8,9 @@ import {useWixClient} from "@/hooks/useWixClient";
 import {LoginState, Tokens} from "@wix/sdk";
 import {useToast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
-
+import Cookies from "js-cookie";
 import CustomSpinner from "@/components/CustomSpinner";
 import {useAuthStore} from "@/hooks/useAuthStore";
-import {setupCookiesToLogin} from "@/lib/actions";
-import Cookies from "js-cookie";
-
 
 export default function Login() {
     const [formData, setFormData] = useState({email: '', password: ''});
@@ -55,22 +52,18 @@ export default function Login() {
                         title: "Successfully logged in !",
                         description: "You are now being redirected",
                     })
-                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then(async (token: Tokens) => {
+                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((tokens:Tokens) => {
 
                         setIsLoading(false)
 
-
-                        console.log(token.refreshToken)
-                        Cookies.set("refreshToken", JSON.stringify(token.refreshToken.value), {
+                        Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
                             expires: 2,
-                            secure: true,
                         });
 
-                        // sessionStorage.setItem("sessionToken", JSON.stringify(token.refreshToken));
-
-                        wixClient.auth.setTokens(token);
+                        wixClient.auth.setTokens(tokens);
+                        router.refresh()
                         setIsLoggedIn(wixClient.auth.loggedIn())
-                        router.push('/');
+                        router.replace('/');
                     });
 
 

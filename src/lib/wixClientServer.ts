@@ -9,10 +9,9 @@ export const wixClientServer = async () => {
 
     try {
         const cookieStore: any = cookies()
-        const token = cookieStore.get("refreshToken")?.value;
+        const token = cookieStore.get("refreshToken");
         if (token) {
-            refreshToken = JSON.parse(token) as string;
-
+            refreshToken = JSON.parse(token.value);
         }
     } catch (error) {
         console.error("Failed to parse refreshToken:", error);

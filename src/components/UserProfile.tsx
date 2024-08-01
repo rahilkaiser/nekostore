@@ -29,7 +29,6 @@ export default function UserProfile({currentUser}: { currentUser: any }) {
                 currentUser.member?.contact?.phones[0]) ||
             "+49"
         );
-        console.log("CURRENTUSER", currentUser)
     }, [currentUser]);
 
     const handleSaveChanges = async () => {

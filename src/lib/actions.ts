@@ -35,7 +35,6 @@ export const updateUser = async (
             }
         );
 
-        console.log("!WWWWWWW",res);
     } catch (err) {
         console.log(err);
     }
@@ -49,7 +48,6 @@ export const resetPassword = async  (
     })=> {
     const wixClient:any = await wixClientServer();
 
-    console.log("USSER", email);
     try {
         const res = await wixClient.auth.sendPasswordResetEmail(
             email,

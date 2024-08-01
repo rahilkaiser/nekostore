@@ -25,7 +25,6 @@ export const Filter = () => {
 
     function getInitalSearchParams(type: string) {
         const params = new URLSearchParams(searchParams);
-        console.log(params.get(type))
 
         switch (type) {
             case "cat":
@@ -40,7 +39,6 @@ export const Filter = () => {
                 if (params.get("cat") || params.get(type)) {
                     const valOther = params.get("cat") || params.get(type);
                     if (valOther && catOthersList.includes(valOther)) {
-                        console.log(valOther)
                         return valOther;
                     }
                 }

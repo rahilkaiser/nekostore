@@ -9,9 +9,7 @@ import CustomSpinner from "@/components/CustomSpinner";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {SheetFooter} from "@/components/ui/sheet";
 import {FaX} from "react-icons/fa6";
-import {useState} from "react";
 import {CgMathMinus, CgMathPlus} from "react-icons/cg";
-import {currentCart} from "@wix/ecom";
 
 
 export const CartModal = () => {
@@ -64,14 +62,12 @@ export const CartModal = () => {
                                                 <div className="flex justify-between gap-4 items-center">
                                                     <CgMathMinus className="font-bold cursor-pointer text-xl"
                                                                  onClick={() => {
-                                                                     console.log(item)
                                                                      decreaseItem(wixClient, item._id!)
                                                                  }}
                                                     />
                                                     <span className="font-semibold">{item.quantity}</span>
                                                     <CgMathPlus className="font-bold cursor-pointer text-xl"
                                                                 onClick={() => {
-                                                                    console.log(item)
                                                                     if (item.quantity && item.quantity < item.availability?.quantityAvailable!) {
                                                                         addItem(wixClient, item.catalogReference?.catalogItemId!, item.catalogReference?.options?.variantId!, 1)
                                                                     }
