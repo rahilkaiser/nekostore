@@ -15,7 +15,7 @@ import {useAuthStore} from "@/hooks/useAuthStore";
 export default function Login() {
     const [formData, setFormData] = useState({email: '', password: ''});
     const [isLoading, setIsLoading] = useState(false);
-    const {isLoggedIn, setIsLoggedIn} = useAuthStore();
+    const { setIsLoggedIn} = useAuthStore();
 
     const wixClient: any = useWixClient();
     const {toast} = useToast()
@@ -52,14 +52,15 @@ export default function Login() {
                         title: "Successfully logged in !",
                         description: "You are now being redirected",
                     })
-                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((token:Tokens) => {
+                    await wixClient.auth.getMemberTokensForDirectLogin(res?.data.sessionToken).then((token: Tokens) => {
 
                         setIsLoading(false)
 
                         Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
                             expires: 2,
                             secure: true,
-                            sameSite: "None"
+                            sameSite: "None",
+                            path: "/"
                         });
 
                         wixClient.auth.setTokens(token);
