@@ -58,12 +58,13 @@ export default function Login() {
 
                         Cookies.set("refreshToken", JSON.stringify(token.refreshToken), {
                             expires: 2,
+                            secure: true,
+                            sameSite: "None"
                         });
 
                         wixClient.auth.setTokens(token);
-                        router.refresh()
                         setIsLoggedIn(wixClient.auth.loggedIn())
-                        router.replace('/');
+                        router.push('/');
                     });
 
 
